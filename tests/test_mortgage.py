@@ -125,3 +125,20 @@ class TestMortgageAmortization(unittest.TestCase):
     def test_amortization_getter_returns_state(self):
         mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
         self.assertEqual(mortgage.amortization, 25)
+
+class TestMortgageFrequency(unittest.TestCase):
+    """Unit tests for Mortgage class frequency property."""
+
+    def test_frequency_setter_value_error(self):
+        mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
+        with self.assertRaises(ValueError):
+            mortgage.frequency = "daily"  # invalid, not in PaymentFrequency
+
+    def test_frequency_setter_updates_state(self):
+        mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
+        mortgage.frequency = PaymentFrequency.BI_WEEKLY
+        self.assertEqual(mortgage._Mortgage__frequency, PaymentFrequency.BI_WEEKLY)
+
+    def test_frequency_getter_returns_state(self):
+        mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
+        self.assertEqual(mortgage.frequency, PaymentFrequency.MONTHLY)

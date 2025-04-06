@@ -90,3 +90,17 @@ class Mortgage:
                 "Amortization must be a value in [5, 10, 15, 20, 25, 30]."
             )
         self.__amortization = value
+
+    @property
+    def frequency(self):
+        """Gets the current payment frequency."""
+        return self.__frequency
+
+    @frequency.setter
+    def frequency(self, value):
+        """Sets a new payment frequency with validation."""
+        if value not in PaymentFrequency:
+            raise ValueError(
+                "Frequency must be a value of PaymentFrequency type."
+            )
+        self.__frequency = value
