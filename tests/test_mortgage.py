@@ -142,3 +142,18 @@ class TestMortgageFrequency(unittest.TestCase):
     def test_frequency_getter_returns_state(self):
         mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
         self.assertEqual(mortgage.frequency, PaymentFrequency.MONTHLY)
+
+class TestMortgageGetPayment(unittest.TestCase):
+    """Unit tests for the get_payment method."""
+
+    def test_get_payment_example_case(self):
+        mortgage = Mortgage(682912.43, 0.0599, 10, PaymentFrequency.MONTHLY)
+        self.assertAlmostEqual(mortgage.get_payment(), 7578.30, places=2)
+
+    def test_get_payment_biweekly(self):
+        mortgage = Mortgage(350000, 0.045, 25, PaymentFrequency.BI_WEEKLY)
+        self.assertAlmostEqual(mortgage.get_payment(), 897.39, places=2)
+
+    def test_get_payment_weekly(self):
+        mortgage = Mortgage(200000, 0.05, 20, PaymentFrequency.WEEKLY)
+        self.assertAlmostEqual(mortgage.get_payment(), 304.31, places=2)

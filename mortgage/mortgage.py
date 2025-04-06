@@ -104,3 +104,12 @@ class Mortgage:
                 "Frequency must be a value of PaymentFrequency type."
             )
         self.__frequency = value
+
+    def get_payment(self) -> float:
+        """Returns the mortgage payment amount using loan data."""
+        P = self.__loan_amount
+        i = self.__annual_interest_rate / self.__frequency.value
+        n = self.__amortization * self.__frequency.value
+
+        payment = P * (i * (1 + i) ** n) / ((1 + i) ** n - 1)
+        return round(payment, 2)
