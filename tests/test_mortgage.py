@@ -1,0 +1,49 @@
+import unittest
+from mortgage.mortgage import Mortgage
+from mortgage.payment_frequency import PaymentFrequency
+
+class TestMortgageInit(unittest.TestCase):
+    """Unit tests for the __init__ method of the Mortgage class."""
+
+    def test_type_error_loan_amount_not_numeric(self):
+        with self.assertRaises(TypeError):
+            Mortgage("100000", 0.05, 25, PaymentFrequency.MONTHLY)
+
+    def test_value_error_loan_amount_zero(self):
+        with self.assertRaises(ValueError):
+            Mortgage(0, 0.05, 25, PaymentFrequency.MONTHLY)
+
+    def test_value_error_loan_amount_negative(self):
+        with self.assertRaises(ValueError):
+            Mortgage(-50000, 0.05, 25, PaymentFrequency.MONTHLY)
+
+    def test_type_error_interest_rate_not_numeric(self):
+        with self.assertRaises(TypeError):
+            Mortgage(100000, "0.05", 25, PaymentFrequency.MONTHLY)
+
+    def test_value_error_interest_rate_negative(self):
+        with self.assertRaises(ValueError):
+            Mortgage(100000, -0.01, 25, PaymentFrequency.MONTHLY)
+
+    def test_value_error_interest_rate_zero(self):
+        with self.assertRaises(ValueError):
+            Mortgage(100000, 0, 25, PaymentFrequency.MONTHLY)
+
+    def test_value_error_interest_rate_above_one(self):
+        with self.assertRaises(ValueError):
+            Mortgage(100000, 1.5, 25, PaymentFrequency.MONTHLY)
+
+    def test_value_error_invalid_amortization(self):
+        with self.assertRaises(ValueError):
+            Mortgage(100000, 0.05, 12, PaymentFrequency.MONTHLY)
+
+    def test_value_error_invalid_frequency(self):
+        with self.assertRaises(ValueError):
+            Mortgage(100000, 0.05, 25, 999)
+
+    def test_object_initializes_private_attributes(self):
+        mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
+        self.assertEqual(mortgage._Mortgage__loan_amount, 100000)
+        self.assertEqual(mortgage._Mortgage__annual_interest_rate, 0.05)
+        self.assertEqual(mortgage._Mortgage__amortization, 25)
+        self.assertEqual(mortgage._Mortgage__frequency, PaymentFrequency.MONTHLY)
