@@ -45,3 +45,17 @@ class Mortgage:
         self.__annual_interest_rate = annual_interest_rate
         self.__amortization = amortization
         self.__frequency = frequency
+        
+    @property
+    def loan_amount(self):
+        """Gets the current loan amount."""
+        return self.__loan_amount
+
+    @loan_amount.setter
+    def loan_amount(self, value):
+        """Sets a new loan amount with validation."""
+        if not isinstance(value, (int, float)):
+            raise TypeError("Loan amount must be a value of a numeric type.")
+        if value <= 0:
+            raise ValueError("Loan Amount must be a value greater than zero.")
+        self.__loan_amount = value

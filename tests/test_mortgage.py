@@ -47,3 +47,30 @@ class TestMortgageInit(unittest.TestCase):
         self.assertEqual(mortgage._Mortgage__annual_interest_rate, 0.05)
         self.assertEqual(mortgage._Mortgage__amortization, 25)
         self.assertEqual(mortgage._Mortgage__frequency, PaymentFrequency.MONTHLY)
+
+class TestMortgageLoanAmount(unittest.TestCase):
+    """Unit tests for Mortgage class loan_amount property."""
+
+    def test_loan_amount_setter_type_error(self):
+        mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
+        with self.assertRaises(TypeError):
+            mortgage.loan_amount = "abc"
+
+    def test_loan_amount_setter_value_error_zero(self):
+        mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
+        with self.assertRaises(ValueError):
+            mortgage.loan_amount = 0
+
+    def test_loan_amount_setter_value_error_negative(self):
+        mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
+        with self.assertRaises(ValueError):
+            mortgage.loan_amount = -100
+
+    def test_loan_amount_setter_updates_state(self):
+        mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
+        mortgage.loan_amount = 150000
+        self.assertEqual(mortgage._Mortgage__loan_amount, 150000)
+
+    def test_loan_amount_getter_returns_state(self):
+        mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
+        self.assertEqual(mortgage.loan_amount, 100000)
