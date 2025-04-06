@@ -76,3 +76,17 @@ class Mortgage:
                 "and less than or equal to 1."
         )
         self.__annual_interest_rate = value
+
+    @property
+    def amortization(self):
+        """Gets the current amortization value."""
+        return self.__amortization
+
+    @amortization.setter
+    def amortization(self, value):
+        """Sets a new amortization value with validation."""
+        if value not in Mortgage.__amortization_years:
+            raise ValueError(
+                "Amortization must be a value in [5, 10, 15, 20, 25, 30]."
+            )
+        self.__amortization = value

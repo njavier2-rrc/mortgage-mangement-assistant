@@ -108,3 +108,20 @@ class TestMortgageAnnualInterestRate(unittest.TestCase):
     def test_interest_rate_getter_returns_state(self):
         mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
         self.assertEqual(mortgage.annual_interest_rate, 0.05)
+
+class TestMortgageAmortization(unittest.TestCase):
+    """Unit tests for Mortgage class amortization property."""
+
+    def test_amortization_setter_value_error(self):
+        mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
+        with self.assertRaises(ValueError):
+            mortgage.amortization = 12  # invalid amortization
+
+    def test_amortization_setter_updates_state(self):
+        mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
+        mortgage.amortization = 20
+        self.assertEqual(mortgage._Mortgage__amortization, 20)
+
+    def test_amortization_getter_returns_state(self):
+        mortgage = Mortgage(100000, 0.05, 25, PaymentFrequency.MONTHLY)
+        self.assertEqual(mortgage.amortization, 25)
