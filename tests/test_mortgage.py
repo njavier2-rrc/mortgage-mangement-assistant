@@ -157,3 +157,17 @@ class TestMortgageGetPayment(unittest.TestCase):
     def test_get_payment_weekly(self):
         mortgage = Mortgage(200000, 0.05, 20, PaymentFrequency.WEEKLY)
         self.assertAlmostEqual(mortgage.get_payment(), 304.31, places=2)
+
+class TestMortgageStr(unittest.TestCase):
+    """Unit test for __str__ method."""
+
+    def test_str_representation(self):
+        mortgage = Mortgage(682912.43, 0.0589, 30, PaymentFrequency.MONTHLY)
+        expected = (
+            "Mortgage Amount: $682,912.43\n"
+            "Rate: 5.89%\n"
+            "Amortization: 30\n"
+            "Frequency: MONTHLY \n"
+            " -- Calculated Payment: $4,046.23"
+        )
+        self.assertEqual(str(mortgage), expected)
