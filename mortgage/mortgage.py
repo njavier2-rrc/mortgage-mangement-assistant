@@ -123,3 +123,8 @@ class Mortgage:
             f"Frequency: {self.__frequency.name} \n"
             f" -- Calculated Payment: ${self.get_payment():,.2f}"
         )
+    
+    def __repr__(self):
+        """Returns the official string representation of the Mortgage object."""
+        return (f"Mortgage({self.__loan_amount}, {self.__annual_interest_rate}, "
+            f"{self.__amortization}, {self.__frequency.name})")

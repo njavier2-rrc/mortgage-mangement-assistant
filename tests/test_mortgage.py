@@ -171,3 +171,11 @@ class TestMortgageStr(unittest.TestCase):
             " -- Calculated Payment: $4,046.23"
         )
         self.assertEqual(str(mortgage), expected)
+
+class TestMortgageRepr(unittest.TestCase):
+    """Unit test for Mortgage class __repr__ method."""
+
+    def test_repr_returns_expected_format(self):
+        mortgage = Mortgage(682912.43, 0.0599, 30, PaymentFrequency.MONTHLY)
+        expected = "Mortgage(682912.43, 0.0599, 30, MONTHLY)"
+        self.assertEqual(repr(mortgage), expected)
